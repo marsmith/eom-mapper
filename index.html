@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Hydrologic Conditions Mapper</title>
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/css/dvf.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+	
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+	<script src="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet/1.0.0-rc.5/esri-leaflet.js"></script>
+	<script src="http://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js"></script>
+	<!--<script src="assets/leaflet-dvf.js"></script>
+	<script src="assets/leaflet-dvf-markers.js"></script>-->
+	<script src="assets/js/basemaps.js"></script>
+	<script src="assets/js/main.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="assets/js/html5shiv.js"></script>
+        <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+  
+  <nav class="navbar navbar-default navbar-fixed-top">
+
+        <div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<!--<a class="navbar-brand" href="http://www.usgs.gov"><img style='display:inline-block;' src="assets/img/usgs_logo.png"><span class='hidden-xs' style='font-size:20px;display:inline-block;'>&nbsp;&nbsp;Hydrologic Conditions Mapper</span><span class='visible-xs'>&nbsp;&nbsp;HCM</span></a>-->
+			<a class="navbar-brand" href="http://www.usgs.gov"><img class='hidden-xs' style='display:inline-block;' src="assets/img/usgs_logo.png"/><img class='visible-xs' style='display:inline-block;' src="assets/img/usgs_logo_small.png"/><span class='hidden-xs' style='font-size:20px;display:inline-block;'>&nbsp;&nbsp;Hydrologic Conditions Mapper</span><span class='visible-xs' style='font-size:14px;display:inline-block;'>Hydrologic Conditions Mapper</span></a>
+		</div> <!-- navbar-header -->
+
+		<div id="navbar" class="navbar-collapse collapse pull-right">
+		
+			<div class="nav navbar-nav">
+				<button id="Streamflow" type="button" class="layerTypeButton btn btn-default navbar-btn" data-toggle="popover" data-content="Streamflow Conditions"><img src="assets/img/wave.png" height="20"></img><span class="visible-xs">Streamflow Conditions</span></button>
+				
+				<button id="Groundwater" type="button" class="layerTypeButton btn btn-default navbar-btn" data-toggle="popover" data-content="Groundwater Conditions"><img src="assets/img/splash.png" height="20"></img><span class="visible-xs">&nbsp;&nbsp;Groundwater Conditions</span></button>
+				
+				<button id="Precip" type="button" class="layerTypeButton btn btn-default navbar-btn" data-toggle="popover" data-content="Precipitation"><img src="assets/img/drop.png" height="20"></img><span class="visible-xs">&nbsp;&nbsp;Precipitation</span></button>
+				
+				<button id="Departure" type="button" class="layerTypeButton btn btn-default navbar-btn" data-toggle="popover" data-content="Precipitation Departure from Normal"><img src="assets/img/splat.png" height="20"></img><span class="visible-xs">&nbsp;&nbsp;Precipitation Departure from Normal</span></button>
+				
+				<div id="NYCsupplyGroup" class="btn-group navbar-btn" data-toggle="popover" data-content="NYC Water Supply System Status">
+					<!--<button id="NYCsupply" type="button" class="btn btn-default"><img src="assets/img/bubbles.png" height="20"></img></button>-->
+					<button id="NYCsupply" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><img src="assets/img/bubbles.png" height="20"></img>&nbsp;&nbsp;<span class="visible-xs">NYC Water Supply System Status</span><span class="caret"></span></button>
+						<ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="btnGroupVerticalDrop1">
+						</ul>
+				</div>
+				
+				<div id="historicalGroup" class="btn-group navbar-btn" data-toggle="popover" data-content="Historical Hydrologic Conditions">
+					<!--<button id="Historical" type="button" class="btn btn-default"><img src="assets/img/wave2.png" height="20"></img></button>-->
+					<button id="Historical" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><img src="assets/img/wave2.png" height="20"></img>&nbsp;&nbsp;<span class="visible-xs">Historical Hydrologic Conditions</span><span class="caret"></span></button>
+						<ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="btnGroupVerticalDrop1">
+						</ul>
+				</div>
+				
+				<div id="seasonalGroup" class="btn-group navbar-btn" data-toggle="popover" data-content="Seasonal Conditions">
+					<!--<button id="Seasonal" type="button" class="btn btn-default"><img src="assets/img/cyclone.png" height="20"></img></button>-->
+					<button id="Seasonal" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><img src="assets/img/cyclone.png" height="20"></img>&nbsp;&nbsp;<span class="visible-xs">Seasonal Conditions</span><span class="caret"></span></button>
+						<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="btnGroupVerticalDrop1">
+							<li id="Seasonal Streamflow" class="layerTypeButton" ><a href="#"><img src="assets/img/wave_green.png" height="20"></img><span>&nbsp;&nbsp;Seasonal Streamflow Conditions</span></a></li>
+							<li id="Seasonal Groundwater" class="layerTypeButton" ><a href="#"><img src="assets/img/splash_green.png" height="20"></img><span>&nbsp;&nbsp;Seasonal Groundwater Conditions</span></a></li>
+						</ul>
+				</div>				
+			
+				<button id="aboutButton" type="button" class="btn btn-info navbar-btn" onclick="$('#aboutModal').modal('show'); return false;"><i class="fa fa-question-circle"></i><span>&nbsp;&nbsp;About</span></button>
+				
+			</div>		
+		</div> <!--/.nav-collapse -->
+
+	</nav>
+	
+	<div id="legend" class="legend">
+		<strong id="legendTitle"></strong>
+		<img id="legendImage" style="display:block;" src=""></img>
+		</br>
+		<div id="legendDropdown" class="btn-group btn-block">
+			<button type="button" class="btn btn-sm btn-info dropdown-toggle legendButton"data-toggle="dropdown">
+				<span id="dropdownDefault" data-bind="label" value=""></span>&nbsp;<span class="caret"></span>
+			</button>
+			<ul class="layerDropdown dropdown-menu scrollable-menu" role="menu"></ul>
+		</div>
+		</br></br>
+		<div id="downloadLinks" class="download-button btn-group btn-group-xs" role="group" aria-label="...">
+			<a id="kmlDownload" class="btn btn-sm btn-success" type="button"><span><i class="fa fa-download"></i></span>&nbsp;&nbsp;KML</a>
+			<a id="csvDownload" class="btn btn-sm btn-success" type="button"><span><i class="fa fa-download"></i></span>&nbsp;&nbsp;Table (.csv)</a>
+			<a id="pdfDownload" class="btn btn-sm btn-success" type="button"><span><i class="fa fa-download"></i></span>&nbsp;&nbsp;Table (.pdf)</a>
+		</div>
+		</br>
+		<!--<small>Source: <a id="sourceInfo" href="#link to source">Name of source</a></small>-->
+	</div>
+	
+    <div id="map">
+			<div id='loadingWrapper'>
+			<i id="loadingSpinner" class="fa fa-spinner fa-5x fa-spin"></i>
+		</div>
+	</div>
+
+    <div id="aboutModal" class="modal fade"  tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:black;">&times;</button>
+            <h4 class="modal-title">Hydrologic Conditions Mapper</h4>
+          </div>
+          <div class="modal-body">
+
+				<strong>About this page:</strong>
+				<p>There are five selectable monthly "data views" available by selecting a blue widget at the top of the page: (1) Streamflow conditions (2) Groundwater conditions (3) Precipitation (4) Precipitation departure from normal (5) NYC Water Supply System Status. In addition, historical monthly conditions reports and seasonal condition maps are also available by by clicking the green widgets. Seasons are defined as: "Winter": (January, February, March), "Spring": (April, May, June), "Summer": (July, August, September), "Autumn": (October, November, December). Hovering over a widget shows its title. </p>
+				<p>NOTE: Click  <a href="http://ny.water.usgs.gov/infodata/percentexceedance.html">here</a> for a definition of percent exceedence.</p>
+
+				<strong>Accessing the data:</strong>
+				<ul>
+					<li>Click on a drainage basin, groundwater well, or a county for a popup with detailed information and links.</li>
+					<li>To download data, click the the download button in the legend window.</li>
+				 </ul>
+				 <strong>Changing Data Display:</strong>
+				 Initial page load defaults to "Streamflow Conditions" data view
+				 <ul>
+					<li>Toggle the data view by selecting a widget from the header bar.</li> 
+					<li>In the legend window, use the dropdown button to change the month you want to display. </li>
+				</ul>
+	
+				<small>NOTE: All data is provisional</small>
+
+            </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+  </body>
+</html>
