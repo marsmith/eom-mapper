@@ -322,7 +322,7 @@ function drawLayer(value) {
 	
 	//add KML layer to map
 	console.log(value.url);
-	kmlLayer = omnivore.kml(value.url.replace('http://ny.water.usgs.gov/projects/eom/',''), null, customLayer)
+	kmlLayer = omnivore.kml(value.url.replace('https://ny.water.usgs.gov/projects/eom/',''), null, customLayer)
 	.on('ready', function() {
         $('#loadingSpinner').hide();
     }).addTo(map);

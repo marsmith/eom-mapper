@@ -630,7 +630,7 @@ L.CategoryFunction = L.Class.extend({
 		return this._categoryKeys;
 	}
 });;// indexOf doesn't work in IE 8 and below, so add this method if it doesn't exist
-// Copied from:  http://stackoverflow.com/questions/1744310/how-to-fix-array-indexof-in-javascript-for-ie-browsers
+// Copied from:  https://stackoverflow.com/questions/1744310/how-to-fix-array-indexof-in-javascript-for-ie-browsers
 if (!Array.prototype.indexOf) {
 	Array.prototype.indexOf = function(obj, start) {
 		 for (var i = (start || 0), j = this.length; i < j; i++) {
@@ -1470,7 +1470,7 @@ L.AnimationUtils = {
 };
 
 /**
- * Adapted from:  http://mjijackson.com/2008/02/rgb-to-hsl-and-rgb-to-hsv-color-model-conversion-algorithms-in-javascript
+ * Adapted from:  https://mjijackson.com/2008/02/rgb-to-hsl-and-rgb-to-hsv-color-model-conversion-algorithms-in-javascript
  * These functions will be used to provide backwards compatibility with browsers that don't support hsl
  */
 L.Color = L.Class.extend({
@@ -1490,7 +1490,7 @@ L.Color = L.Class.extend({
 
 	/**
 	 * Converts an RGB color value to HSL. Conversion formula
-	 * adapted from http://en.wikipedia.org/wiki/HSL_color_space.
+	 * adapted from https://en.wikipedia.org/wiki/HSL_color_space.
 	 * Assumes r, g, and b are contained in the set [0, 255] and
 	 * returns h, s, and l in the set [0, 1].
 	 *
@@ -1525,7 +1525,7 @@ L.Color = L.Class.extend({
 
 	/**
 	 * Converts an HSL color value to RGB. Conversion formula
-	 * adapted from http://en.wikipedia.org/wiki/HSL_color_space.
+	 * adapted from https://en.wikipedia.org/wiki/HSL_color_space.
 	 * Assumes h, s, and l are contained in the set [0, 1] and
 	 * returns r, g, and b in the set [0, 255].
 	 *
@@ -1801,7 +1801,7 @@ L.Animation = L.Class.extend({
 		this._inProgress = false;
 		this.fire('end');
 	}
-});;// @preserve This product includes color specifications and designs developed by Cynthia Brewer (http://colorbrewer.org/).
+});;// @preserve This product includes color specifications and designs developed by Cynthia Brewer (https://colorbrewer.org/).
 // Adapted from:  https://raw.github.com/mbostock/d3/master/lib/colorbrewer/colorbrewer.js
 L.ColorBrewer = {
 	Sequential: {
@@ -2465,7 +2465,7 @@ L.RegularPolygon = L.Polygon.extend({
 
 L.regularPolygon = function (centerLatLng, options) {
 	return new L.RegularPolygon(centerLatLng, options);
-};;L.Path.XLINK_NS = 'http://www.w3.org/1999/xlink';
+};;L.Path.XLINK_NS = 'https://www.w3.org/1999/xlink';
 
 /*
  * Functions that support displaying text on an SVG path
@@ -5851,7 +5851,7 @@ L.PanoramioLayer = L.PanoramioLayer.extend({
 				photoInfo.style.width = (width - 20) + 'px';
 				photoInfo.innerHTML = '<span>' + title + '</span>' +
 						      '<a class="photo-link" target="_blank" href="' + record.photo_url + '">' +
-						      '<img src="http://www.panoramio.com/img/glass/components/logo_bar/panoramio.png" style="height: 14px;"/>' +
+						      '<img src="https://www.panoramio.com/img/glass/components/logo_bar/panoramio.png" style="height: 14px;"/>' +
 						      '</a>';
 
 				var authorLink = L.DomUtil.create('a', 'author-link', content);
@@ -5906,7 +5906,7 @@ L.PanoramioLayer = L.PanoramioLayer.extend({
 		},
 		updateInterval: 300000,
 		size: 'square',
-		attributionText: 'Photos provided by <a href="http://www.panoramio.com"><img src="http://www.panoramio.com/img/glass/components/logo_bar/panoramio.png" style="height: 10px;"/></a>.  Photos provided by <a href="http://www.panoramio.com"><img src="http://www.panoramio.com/img/glass/components/logo_bar/panoramio.png" style="height: 10px;"/></a> are under the copyright of their owners',
+		attributionText: 'Photos provided by <a href="https://www.panoramio.com"><img src="https://www.panoramio.com/img/glass/components/logo_bar/panoramio.png" style="height: 10px;"/></a>.  Photos provided by <a href="https://www.panoramio.com"><img src="https://www.panoramio.com/img/glass/components/logo_bar/panoramio.png" style="height: 10px;"/></a> are under the copyright of their owners',
 		refreshEvents: 'moveend',
 		photoSet: 'public'
 	},
@@ -6075,7 +6075,7 @@ L.PanoramioLayer = L.PanoramioLayer.extend({
 		}
 
 		var request = this.requestJsonp(
-			'http://www.panoramio.com/map/get_panoramas.php',
+			'https://www.panoramio.com/map/get_panoramas.php',
 			{
 				set: this.options.photoSet,
 				from: me._from,
